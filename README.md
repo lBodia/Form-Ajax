@@ -1,4 +1,5 @@
 # FormAjax
+[![npm version](https://badge.fury.io/js/form-ajax.svg)](https://badge.fury.io/js/form-ajax)
 
 ## Installation
 ```npm install form-ajax --save```
