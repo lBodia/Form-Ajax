@@ -1,0 +1,27 @@
+{
+  "name": "form-ajax",
+  "version": "1.0.0",
+  "description": "Submitting a form with AJAX",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix"
+  },
+  "author": "Bohdan Liba",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lBodia/Form-Ajax.git"
+  },
+  "dependencies": {
+    "tiny-emitter": "^2.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.3.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1"
+  }
+}
