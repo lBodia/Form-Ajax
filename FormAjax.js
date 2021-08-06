@@ -1,14 +1,22 @@
-import EventEmitter from 'tiny-emitter';
-
-export default class FormAjax extends EventEmitter {
+export default class FormAjax {
   constructor (container, options = {}) {
-    super();
+    this.events = {};
     this.form = container;
     this.init();
     this.options = {
       disabledClass: 'disabled',
       ...options
     };
+  }
+
+  on (name, callback) {
+    this.events[name] = {
+      fn: callback
+    };
+  }
+
+  emit (name, payload) {
+    return this.events[name] && this.events[name].fn(payload);
   }
 
   init () {
@@ -23,6 +31,12 @@ export default class FormAjax extends EventEmitter {
   async submit () {
     this.disableInput();
     try {
+      const beforeSubmit = this.emit('beforeSubmit', this.form);
+
+      if (beforeSubmit === false) {
+        return false;
+      }
+
       const response = await this.makeRequest();
       this.handleSuccessResponse(response);
     } catch (error) {
@@ -33,7 +47,7 @@ export default class FormAjax extends EventEmitter {
   }
 
   makeRequest () {
-    const data = new FormData(this.form);
+    const formData = new FormData(this.form);
     const headers = { 'X-Requested-With': 'XMLHttpRequest' };
     const xhr = new XMLHttpRequest();
 
@@ -50,7 +64,7 @@ export default class FormAjax extends EventEmitter {
       Object.keys(headers).forEach((header) => {
         xhr.setRequestHeader(header, headers[header]);
       });
-      xhr.send(data);
+      xhr.send(formData);
     });
   }
 
